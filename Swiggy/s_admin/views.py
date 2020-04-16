@@ -138,3 +138,21 @@ def save_type(request):
         return redirect('open_type')
     else:
         return render(request, "s_admin/open_type.html", {"sf": sf})
+
+def update_type(request):
+    no=request.GET.get('no')
+    tname=request.GET.get('tname')
+    d1={"no":no,"tname":tname}
+    return render(request,'s_admin/open_type.html',{'update_data':d1,'sdata':RestaurantTypeModel.objects.all()})
+
+def update_type_data(request):
+    no=request.POST.get('s1')
+    tname=request.POST.get('s2')
+    RestaurantTypeModel.objects.filter(no=no).update(type_name=tname)
+    return redirect('open_type')
+
+
+def delete_type(request):
+    no=request.GET.get('no')
+    RestaurantTypeModel.objects.filter(no=no).delete()
+    return redirect('open_type')
